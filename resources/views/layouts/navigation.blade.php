@@ -16,9 +16,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if (Auth::user()->isAdmin())
                     <x-nav-link :href="route('dashboard.user-management')" :active="request()->routeIs('dashboard.user-management')">
                         {{ __('User Management') }}
                     </x-nav-link>
+                    @endif
+                    @if (Auth::user()->isAdmin() || Auth::user()->isStaff())
                     <x-nav-link :href="route('dashboard.room-management')" :active="request()->routeIs('dashboard.room-management')">
                         {{ __('Hotel Room Management') }}
                     </x-nav-link>
@@ -27,6 +30,15 @@
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('News & Promotion Management') }}
+                    </x-nav-link>
+                    @endif
+                    @if (Auth::user()->isCustomer())
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Book Hotel Room') }}
+                    </x-nav-link>
+                    @endif
+                    <x-nav-link :href="route('news')" :active="request()->routeIs('news')">
+                        {{ __('News') }}
                     </x-nav-link>
                 </div>
                 @endauth
