@@ -18,11 +18,14 @@
                     <x-nav-link :href="route('dashboard.user-management')" :active="request()->routeIs('dashboard.user-management')">
                         {{ __('User Management') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard.room-management')" :active="request()->routeIs('dashboard.room-management')">
                         {{ __('Hotel Room Management') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Hotel Room Transaction') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Blog News Management') }}
                     </x-nav-link>
                 </div>
             </div>
