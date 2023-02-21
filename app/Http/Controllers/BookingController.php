@@ -9,19 +9,23 @@ use Illuminate\View\View;
 use App\Models\Transaction;
 use App\Models\Room;
 use App\Models\User;
+use App\Models\Customer;
 
 class BookingController extends Controller
 {
-    public function view_room_customer(Request $request): View
+    public function book(Request $request): RedirectResponse
     {
-        $rooms = Room::all();
-        return view('app.customer.booking', [
-            'rooms' => $rooms
-        ]);
-    }
+        $customer = Customer::where('user_id', $request->user()->id)->first();
+        $room = Room::find($request->room_id);
 
-    public function book_room_customer(User $user, Request $request): RedirectResponse
-    {
-        // $room = 
+        $transaction_price = $room->price_per_night * $request->nights;
+        $transaction = Transaction::create([
+            'price' => $transaction_price,
+            'booked_nights' => $request->nights,
+            'booked_start_date' => $request->start_date,
+            'booked_end_date' => $request->end_date,
+            'customer_id' => $customer->id,
+            'room_id' => $room->id,
+        ])
     }
 }
