@@ -26,7 +26,7 @@
                         {{ __('Hotel Room Transaction') }}
                     </x-nav-link>
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Blog News Management') }}
+                        {{ __('News & Promotion Management') }}
                     </x-nav-link>
                 </div>
                 @endauth

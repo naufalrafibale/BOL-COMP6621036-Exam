@@ -2,13 +2,13 @@
     <x-slot name="header">
         <div class="flex items-center justify-start">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Item Management') }}
+                {{ __('Hotel Room Management') }}
             </h2>
             <button class="mx-6 text-green-500 hover:text-green-300 text-white font-bold rounded" x-data="{}"
-                    x-on:click.prevent="$dispatch('open-modal', 'add-item')"
-                >{{ __('Add Item') }}
+                    x-on:click.prevent="$dispatch('open-modal', 'add-room')"
+                >{{ __('Add room') }}
             </button>
-            <x-modal name="add-item" focusable>
+            <x-modal name="add-room" focusable>
                 <form method="post" action="{{ route('dashboard.room-management') }}" class="text-left p-6 space-y-6" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
@@ -40,31 +40,15 @@
                     </div>
 
                     <div>
-                        <x-input-label for="available_rooms" :value="__('Stock Quantity')" />
-                        <x-text-input id="stock_qty" name="stock_qty" type="text" class="mt-1 block w-full" :value="old('stock_qty')" required autofocus autocomplete="stock_qty" />
-                        <x-input-error class="mt-2" :messages="$errors->get('stock_qty')" />
+                        <x-input-label for="available_rooms" :value="__('Available Rooms')" />
+                        <x-text-input id="available_rooms" name="available_rooms" type="text" class="mt-1 block w-full" :value="old('available_rooms')" required autofocus autocomplete="available_rooms" />
+                        <x-input-error class="mt-2" :messages="$errors->get('available_rooms')" />
                     </div>
 
                     <div>
-                        <x-input-label for="buying_price" :value="__('Buying Price')" />
-                        <x-text-input id="buying_price" name="buying_price" type="text" class="mt-1 block w-full" :value="old('buying_price')" required autofocus autocomplete="buying_price" />
-                        <x-input-error class="mt-2" :messages="$errors->get('buying_price')" />
-                    </div>
-
-                    <div>
-                        <x-input-label for="selling_price" :value="__('Selling Price')" />
-                        <x-text-input id="selling_price" name="selling_price" type="text" class="mt-1 block w-full" :value="old('selling_price')" required autofocus autocomplete="selling_price" />
-                        <x-input-error class="mt-2" :messages="$errors->get('selling_price')" />
-                    </div>
-
-                    <div class="mt-4">
-                        <x-input-label for="picture_file" :value="__('Item Picture File')" />
-
-                        <x-text-input id="picture_file" class="block mt-1 w-full"
-                                        type="file"
-                                        name="picture_file"/>
-
-                        <x-input-error :messages="$errors->get('picture_file')" class="mt-2" />
+                        <x-input-label for="booked_rooms" :value="__('Booked Rooms')" />
+                        <x-text-input id="booked_rooms" name="booked_rooms" type="text" class="mt-1 block w-full" :value="old('booked_rooms')" required autofocus autocomplete="booked_rooms" />
+                        <x-input-error class="mt-2" :messages="$errors->get('booked_rooms')" />
                     </div>
 
                     <div class="mt-6 flex justify-end">
@@ -73,7 +57,7 @@
                         </x-secondary-button>
 
                         <button class="ml-3 px-6 py-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                            {{ __('Add Item') }}
+                            {{ __('Add room') }}
                         </button>
                     </div>
                 </form>
@@ -92,22 +76,16 @@
                                     Name
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Description
-                                </th>
-                                <th scope="col" class="px-6 py-3">
                                     Type
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Stock Qty
+                                    Price per Night
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Buying Price
+                                    Available Rooms
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Selling Price
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Picture
+                                    Booked Rooms
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     <span class="sr-only">Edit</span>
@@ -115,43 +93,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($items as $item)
+                        @foreach ($rooms as $room)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $item->name }}
+                                    {{ $room->name }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $item->description }}
+                                    {{ $room->type }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $item->type }}
+                                    {{ $room->price_per_night }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $item->stock_qty }}
+                                    {{ $room->available_rooms }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $item->buying_price }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $item->selling_price }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="{{ asset('thisshouldbesecret/'.$item->picture_file)}}" target="_blank">View</a>
+                                    {{ $room->booked_rooms }}
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex justify-end">
                                         <button class="ml-3 px-6 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                             x-data="{}"
-                                            x-on:click.prevent="$dispatch('open-modal', 'edit-item-{{$item->id}}')"
+                                            x-on:click.prevent="$dispatch('open-modal', 'edit-room-{{$room->id}}')"
                                         >{{ __('Edit') }}</button>
-                                        <x-modal name="edit-item-{{$item->id}}" focusable>
-                                            <form method="post" action="{{ route('dashboard.item-management.update', [$item->id]) }}" class="text-left p-6 space-y-6">
+                                        <x-modal name="edit-room-{{$room->id}}" focusable>
+                                            <form method="post" action="{{ route('dashboard.room-management.update', [$room->id]) }}" class="text-left p-6 space-y-6">
                                                 @csrf
                                                 @method('POST')
 
                                                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                                    {{ __('Edit item: :name', ['name' => $item->name]) }}
+                                                    {{ __('Edit room: :name', ['name' => $room->name]) }}
                                                 </h2>
 
                                                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -160,45 +131,39 @@
 
                                                 <div style="display:none">
                                                     <x-input-label for="id" :value="__('id')" />
-                                                    <x-text-input id="id" name="id" type="text" class="mt-1 block w-full" :value="old('id', $item->id)" required/>
+                                                    <x-text-input id="id" name="id" type="text" class="mt-1 block w-full" :value="old('id', $room->id)" required/>
                                                     <x-input-error class="mt-2" :messages="$errors->get('id')" />
                                                 </div>
 
                                                 <div>
                                                     <x-input-label for="name" :value="__('Name')" />
-                                                    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $item->name)" required autofocus/>
+                                                    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name')" required autofocus autocomplete="name" />
                                                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                                                 </div>
 
                                                 <div>
-                                                    <x-input-label for="description" :value="__('Description')" />
-                                                    <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description', $item->description)" required />
-                                                    <x-input-error class="mt-2" :messages="$errors->get('description')" />
-                                                </div>
-
-                                                <div>
                                                     <x-input-label for="type" :value="__('Type')" />
-                                                    <x-text-input id="type" name="type" type="text" class="mt-1 block w-full" :value="old('type', $item->type)" required />
+                                                    <x-text-input id="type" name="type" type="text" class="mt-1 block w-full" :value="old('type')" required autofocus autocomplete="room type" />
                                                     <x-input-error class="mt-2" :messages="$errors->get('type')" />
                                                 </div>
 
                                                 <div>
-                                                    <x-input-label for="stock_qty" :value="__('Stock Quantity')" />
-                                                    <x-text-input id="stock_qty" name="stock_qty" type="text" class="mt-1 block w-full" :value="old('stock_qty', $item->stock_qty)" required />
-                                                    <x-input-error class="mt-2" :messages="$errors->get('stock_qty')" />
+                                                    <x-input-label for="price_per_night" :value="__('Price per night')" />
+                                                    <x-text-input id="price_per_night" name="price_per_night" type="text" class="mt-1 block w-full" :value="old('price_per_night')" required autofocus autocomplete="price_per_night" />
+                                                    <x-input-error class="mt-2" :messages="$errors->get('price_per_night')" />
                                                 </div>
-                                                
+
                                                 <div>
-                                                    <x-input-label for="buying_price" :value="__('Buying Price')" />
-                                                    <x-text-input id="buying_price" name="buying_price" type="text" class="mt-1 block w-full" :value="old('buying_price', $item->buying_price)" required />
-                                                    <x-input-error class="mt-2" :messages="$errors->get('buying_price')" />
+                                                    <x-input-label for="available_rooms" :value="__('Available Rooms')" />
+                                                    <x-text-input id="available_rooms" name="available_rooms" type="text" class="mt-1 block w-full" :value="old('available_rooms')" required autofocus autocomplete="available_rooms" />
+                                                    <x-input-error class="mt-2" :messages="$errors->get('available_rooms')" />
                                                 </div>
-                                                
+
                                                 <div>
-                                                    <x-input-label for="selling_price" :value="__('Selling Price')" />
-                                                    <x-text-input id="selling_price" name="selling_price" type="text" class="mt-1 block w-full" :value="old('selling_price', $item->selling_price)" required/>
-                                                    <x-input-error class="mt-2" :messages="$errors->get('selling_price')" />
-                                                </div>                                                
+                                                    <x-input-label for="booked_rooms" :value="__('Booked Rooms')" />
+                                                    <x-text-input id="booked_rooms" name="booked_rooms" type="text" class="mt-1 block w-full" :value="old('booked_rooms')" required autofocus autocomplete="booked_rooms" />
+                                                    <x-input-error class="mt-2" :messages="$errors->get('booked_rooms')" />
+                                                </div>                 
 
                                                 <div class="mt-6 flex justify-end">
                                                     <x-secondary-button x-on:click="$dispatch('close')">
@@ -206,26 +171,26 @@
                                                     </x-secondary-button>
 
                                                     <button class="ml-3 px-6 py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                        {{ __('Update Item') }}
+                                                        {{ __('Update room') }}
                                                     </button>
                                                 </div>
                                             </form>
                                         </x-modal>
                                         <x-danger-button class="ml-3"
                                             x-data="{}"
-                                            x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion-{{$item->id}}')"
+                                            x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion-{{$room->id}}')"
                                         >{{ __('Delete') }}</x-danger-button>
-                                        <x-modal name="confirm-user-deletion-{{$item->id}}" :show="$errors->userDeletion->isNotEmpty()" focusable>
-                                            <form method="post" action="{{ route('dashboard.item-management.destroy', [$item->id]) }}" class="text-left p-6">
+                                        <x-modal name="confirm-user-deletion-{{$room->id}}" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                                            <form method="post" action="{{ route('dashboard.room-management.destroy', [$room->id]) }}" class="text-left p-6">
                                                 @csrf
                                                 @method('delete')
 
                                                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                                    {{ __('Are you sure you want to delete item :name ?', ['name' => $item->name]) }}
+                                                    {{ __('Are you sure you want to delete room :name ?', ['name' => $room->name]) }}
                                                 </h2>
 
                                                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                                    {{ __('Once the item is deleted, all of its resources and data will be permanently deleted.') }}
+                                                    {{ __('Once the room is deleted, all of its resources and data will be permanently deleted.') }}
                                                 </p>
                                                 
                                                 <div class="mt-6 flex justify-end">
@@ -234,7 +199,7 @@
                                                     </x-secondary-button>
 
                                                     <x-danger-button class="ml-3">
-                                                        {{ __('Delete Item') }}
+                                                        {{ __('Delete room') }}
                                                     </x-danger-button>
                                                 </div>
                                             </form>

@@ -14,7 +14,7 @@ class RoomController extends Controller
     public function view_manager(Request $request): View
     {
         $rooms = Room::all()->sortBy('name');
-        return view('app.management.hotel-rooms', [
+        return view('app.room-management', [
             'rooms' => $rooms]);
     }
 
