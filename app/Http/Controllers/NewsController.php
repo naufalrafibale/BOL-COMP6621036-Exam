@@ -11,7 +11,7 @@ class NewsController extends Controller
     public function view_guest(): View
     {
         $news = News::all()->sortBy('created_at');
-
+        
         return view('app.news', [
             'news' => $news,
         ]);

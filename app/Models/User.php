@@ -49,6 +49,11 @@ class User extends Authenticatable
         return $this->hasOne(Customer::class);
     }
 
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
+
     public function isAdmin()
     {
         if ($this->roles->name == "admin")
