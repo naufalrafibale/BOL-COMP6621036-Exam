@@ -26,6 +26,6 @@ class BookingController extends Controller
             'booked_end_date' => $request->end_date,
             'customer_id' => $customer->id,
             'room_id' => $room->id,
-        ])
+        ]);
     }
 }
