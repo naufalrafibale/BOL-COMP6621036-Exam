@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use App\Models\News;
 
 class NewsController extends Controller
 {
+    public function view_guest(): View
+    {
+        $news = News::all()->sortBy('created_at');
+
+        return view('app.news', [
+            'news' => $news,
+        ]);
+    }
+
     public function add(Request $request): RedirectResponse
     {      
         $news = News::create([
