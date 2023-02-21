@@ -43,7 +43,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard.user-management')" :active="request()->routeIs('dashboard.user-management')">
+                    <x-nav-link :href="route('news')" :active="request()->routeIs('news')">
                         {{ __('Hotel News Promotion') }}
                     </x-nav-link>
                 </div>

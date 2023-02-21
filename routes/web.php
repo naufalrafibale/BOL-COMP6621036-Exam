@@ -26,6 +26,10 @@ Route::get('/dashboard', function () {
     return view('app/dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/news', function () {
+    return view('app/news');
+})->name('news');
+
 Route::get('/dashboard/user-management', [UserManagementController::class, 'view'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.user-management');
 Route::post('/dashboard/user-management', [UserManagementController::class, 'update'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.user-management.update');
 Route::delete('/dashboard/user-management/{id}', [UserManagementController::class, 'destroy'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.user-management.destroy');
