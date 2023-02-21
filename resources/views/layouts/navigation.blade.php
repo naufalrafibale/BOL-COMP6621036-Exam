@@ -56,7 +56,7 @@
                         {{ __('Home') }}
                     </x-nav-link>
                     <x-nav-link :href="route('news')" :active="request()->routeIs('news')">
-                        {{ __('Hotel News Promotion') }}
+                        {{ __('Hotel News & Promotion') }}
                     </x-nav-link>
                 </div>
                 @endguest
