@@ -9,12 +9,12 @@
                 >{{ __('Add Item') }}
             </button>
             <x-modal name="add-item" focusable>
-                <form method="post" action="{{ route('dashboard.item-management') }}" class="text-left p-6 space-y-6" enctype="multipart/form-data">
+                <form method="post" action="{{ route('dashboard.room-management') }}" class="text-left p-6 space-y-6" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 
                     <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        {{ __('Add new item:') }}
+                        {{ __('Add new hotel room:') }}
                     </h2>
 
                     <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -28,19 +28,19 @@
                     </div>
 
                     <div>
-                        <x-input-label for="description" :value="__('Description')" />
-                        <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description')" required autofocus autocomplete="description" />
-                        <x-input-error class="mt-2" :messages="$errors->get('description')" />
-                    </div>
-
-                    <div>
                         <x-input-label for="type" :value="__('Type')" />
-                        <x-text-input id="type" name="type" type="text" class="mt-1 block w-full" :value="old('type')" required autofocus autocomplete="type" />
+                        <x-text-input id="type" name="type" type="text" class="mt-1 block w-full" :value="old('type')" required autofocus autocomplete="room type" />
                         <x-input-error class="mt-2" :messages="$errors->get('type')" />
                     </div>
 
                     <div>
-                        <x-input-label for="stock_qty" :value="__('Stock Quantity')" />
+                        <x-input-label for="price_per_night" :value="__('Price per night')" />
+                        <x-text-input id="price_per_night" name="price_per_night" type="text" class="mt-1 block w-full" :value="old('price_per_night')" required autofocus autocomplete="price_per_night" />
+                        <x-input-error class="mt-2" :messages="$errors->get('price_per_night')" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="available_rooms" :value="__('Stock Quantity')" />
                         <x-text-input id="stock_qty" name="stock_qty" type="text" class="mt-1 block w-full" :value="old('stock_qty')" required autofocus autocomplete="stock_qty" />
                         <x-input-error class="mt-2" :messages="$errors->get('stock_qty')" />
                     </div>

@@ -34,7 +34,7 @@ Route::get('/dashboard/room-management', [RoomController::class, 'view_manager']
 Route::get('/dashboard/room/booking', [RoomController::class, 'view_customer'])->middleware(['auth', 'verified', 'role:customer'])->name('dashboard.room-booking');
 Route::post('/dashboard/room/booking', [RoomController::class, 'view_customer'])->middleware(['auth', 'verified', 'role:customer'])->name('dashboard.room-booking');
 Route::post('/dashboard/room-management', [RoomController::class, 'add'])->middleware(['auth', 'verified', 'role:admin,staff'])->name('dashboard.room-management');
-Route::post('/dashboard/room-management', [RoomController::class, 'update'])->middleware(['auth', 'verified', 'role:admin,staff'])->name('dashboard.room-management.update');
+Route::post('/dashboard/room-management/{id}', [RoomController::class, 'update'])->middleware(['auth', 'verified', 'role:admin,staff'])->name('dashboard.room-management.update');
 Route::delete('/dashboard/room-management/{id}', [RoomController::class, 'destroy'])->middleware(['auth', 'verified', 'role:admin,staff'])->name('dashboard.room-management.destroy');
 
 Route::middleware('auth')->group(function () {
