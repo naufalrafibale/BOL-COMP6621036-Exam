@@ -15,12 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/dashboard');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('app/dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard/user-management', [UserManagement::class, 'view'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.user-management');
+Route::post('/dashboard/user-management', [UserManagement::class, 'update'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.user-management.update');
+Route::delete('/dashboard/user-management/{id}', [UserManagement::class, 'destroy'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.user-management.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
