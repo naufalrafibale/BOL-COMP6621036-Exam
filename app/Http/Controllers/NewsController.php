@@ -33,7 +33,6 @@ class NewsController extends Controller
         $news = News::create([
             'title' => $request->title,
             'description' => $request->description,
-            'user_id' => $request->user()->id,
         ]);
 
         return redirect()->back();
