@@ -27,6 +27,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/news', [NewsController::class, 'view_guest'])->name('news');
+Route::get('/dashboard/news-management', [NewsController::class, 'view_manager'])->name('dashboard.news-management');
+Route::post('/dashboard/news-management', [NewsController::class, 'add'])->middleware(['auth', 'verified', 'role:admin,staff'])->name('dashboard.news-management');
+Route::post('/dashboard/news-management/{id}', [NewsController::class, 'update'])->middleware(['auth', 'verified', 'role:admin,staff'])->name('dashboard.news-management.update');
+Route::delete('/dashboard/news-management/{id}', [NewsController::class, 'destroy'])->middleware(['auth', 'verified', 'role:admin,staff'])->name('dashboard.news-management.destroy');
 
 Route::get('/dashboard/user-management', [UserManagementController::class, 'view'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.user-management');
 Route::post('/dashboard/user-management', [UserManagementController::class, 'update'])->middleware(['auth', 'verified', 'role:admin'])->name('dashboard.user-management.update');
