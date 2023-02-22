@@ -28,4 +28,23 @@ class BookingController extends Controller
             'room_id' => $room->id,
         ]);
     }
+
+    public function view_manager(Request $request): RedirectResponse
+    {
+        $transactions = Transaction::all()->sortBy('created_at');
+        
+        return view('app.transaction-management', [
+            'transactions' => $transactions,
+        ]);
+    }
+
+    public function view_customer(Request $request): RedirectResponse
+    {
+        
+        $transactions = Transaction::all()->sortBy('created_at');
+        
+        return view('app.transaction-management', [
+            'transactions' => $transactions,
+        ]);
+    }
 }
