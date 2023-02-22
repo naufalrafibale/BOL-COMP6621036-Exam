@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use App\Models\Transaction;
 use App\Models\Room;
 use App\Models\User;
+use App\Models\Customer;
 
 class UserManagementController extends Controller
 {

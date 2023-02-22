@@ -45,14 +45,7 @@
                                     @if ($user->roles->name != "admin")
                                         gender:{{ $user->gender ? $user->gender : "none" }},
                                     @endif
-                                    @if ($user->roles->name == "customer")
-                                        <br>
-                                            customer.address:{{ $user->customer->address }}
-                                        <br>
-                                            customer.birth_place:{{ $user->customer->birth_place }}
-                                        <br>
-                                            customer.identity_file:{{ $user->customer->identity_picture_file }}
-                                    @endif
+                                    
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex justify-end">
@@ -104,37 +97,6 @@
                                                             <option {{old('gender',$user->gender)=="female"? 'selected':''}} value="female">Female</option>
                                                             <option {{old('gender',$user->gender)=="others"? 'selected':''}} value="others">Others</option>
                                                         </select>
-                                                    </div>
-                                                @endif
-                                                @if ($user->roles->name == "customer")
-                                                    <div class="mt-4" id="birth_place" >
-                                                        <x-input-label for="birth_place" :value="__('Birth place')" />
-
-                                                        <x-text-input id="birth_place" class="block mt-1 w-full"
-                                                                        type="text"
-                                                                        :value="old('birth_place', $user->customer->birth_place)"
-                                                                        name="birth_place"/>
-                                                        <x-input-error :messages="$errors->get('birth_place')" class="mt-2" />
-                                                    </div>
-
-                                                    <div class="mt-4" id="address" >
-                                                        <x-input-label for="address" :value="__('Address')" />
-
-                                                        <x-text-input id="address" class="block mt-1 w-full"
-                                                                        type="text"
-                                                                        name="address"/>
-
-                                                        <x-input-error :messages="$errors->get('address')" class="mt-2" />
-                                                    </div>
-
-                                                    <div class="mt-4" id="identity_picture_file" >
-                                                        <x-input-label for="identity_picture_file" :value="__('Identity picture file')" />
-
-                                                        <x-text-input id="identity_picture_file" class="block mt-1 w-full"
-                                                                        type="file"
-                                                                        name="identity_picture_file"/>
-
-                                                        <x-input-error :messages="$errors->get('identity_picture_file')" class="mt-2" />
                                                     </div>
                                                 @endif
 
